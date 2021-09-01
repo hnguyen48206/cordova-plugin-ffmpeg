@@ -59,7 +59,7 @@ setInterval(()=>{
         console.log(result);
       },(error) => {
         console.log(error);
-      });
+      }); 
 },2000);
 ```
 
