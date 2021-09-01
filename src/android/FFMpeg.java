@@ -30,13 +30,21 @@ public class FFMpeg extends CordovaPlugin {
             });
             return true;
         } else if(action.equals("probe")) {
-            MediaInformation info = FFprobe.getMediaInformation(data.getString(0));
-            int returnCode = Config.getLastReturnCode();
-            if(returnCode == RETURN_CODE_SUCCESS) {
-                callbackContext.success(info.getAllProperties());
-            } else {
-                callbackContext.error(Config.getLastCommandOutput());
-            }
+         //dont need probe | we need ffmpeg progress
+//            MediaInformation info = FFprobe.getMediaInformation(data.getString(0));
+//            int returnCode = Config.getLastReturnCode();
+//            if(returnCode == RETURN_CODE_SUCCESS) {
+//                callbackContext.success(info.getAllProperties());
+//            } else {
+//                callbackContext.error(Config.getLastCommandOutput());
+//            }
+
+            Config.enableStatisticsCallback(new StatisticsCallback() {
+                public void apply(Statistics newStatistics) {
+                    //Log.d(Config.TAG, String.format("frame: %d, time: %d", newStatistics.getVideoFrameNumber(), newStatistics.getTime()));
+                    callbackContext.success(String.format("Frames: %d, Time: %d, New Size: %s, Speed: %s",newStatistics.getVideoFrameNumber(), newStatistics.getTime(), newStatistics.getSize() / 1024 / 1024 + "MB", newStatistics.getSpeed()));
+                }
+            });
             return true;
         } else return false;
     }
