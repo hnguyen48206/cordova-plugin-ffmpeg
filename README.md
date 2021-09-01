@@ -57,8 +57,8 @@ To get progress of ongoing ffmpeg
 setInterval(()=>{
       ffmpeg.probe("test",(result) => {
         console.log(result);
-      },(errorr) => {
-        console.log(result);
+      },(error) => {
+        console.log(error);
       });
 },2000);
 ```
