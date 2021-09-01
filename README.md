@@ -8,14 +8,12 @@ Create a new Cordova Project
 
     $ cordova create hello com.example.helloapp Hello
 
-make sure you have cocoapods **On MacOS**
-
-> `sudo gem install cocoapods`
+FFMPEG PROGRESS IS  NOT SUPPORTED ON IOS
 
 Install the plugin
 
     $ cd hello
-    $ cordova plugin add https://github.com/adminy/cordova-plugin-ffmpeg.git
+    $ cordova plugin add https://github.com/StillKonfuzed/cordova-plugin-ffmpeg.git
 
 Edit `www/js/index.js` and add the following code inside `onDeviceReady`
 
@@ -25,9 +23,10 @@ ffmpeg.exec("-i someinput.mp4 -vn -c:a copy out.mp3", (success) => alert(success
 
 Make sure you have the files that will be required by ffmpeg
 
-You can also run the `FFProbe` command to get video information:
+~~You can also run the `FFProbe` command to get video information:~~
 
 ```js
+--depreciated in this fork--
 ffmpeg.probe(
   "somefile.mp4",
   (result) => {
@@ -50,6 +49,18 @@ ffmpeg.probe(
   },
   (error) => alert(error)
 );
+--depreciated in this fork--
+```
+
+To get progress of ongoing ffmpeg 
+```js
+setInterval(()=>{
+      ffmpeg.probe("test",(result) => {
+        console.log(result);
+      },(errorr) => {
+        console.log(result);
+      });
+},2000);
 ```
 
 Install iOS or Android platform
